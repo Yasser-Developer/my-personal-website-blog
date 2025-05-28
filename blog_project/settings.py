@@ -1,6 +1,7 @@
 # اضافه کردن pathlib
 from pathlib import Path
 import os
+from decouple import config
 
 # تغییر تعریف BASE_DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -89,4 +90,4 @@ LOGIN_REDIRECT_URL = 'blog:index'
 LOGOUT_REDIRECT_URL = 'blog:index'
 
 
-SECRET_KEY = 'KOlMr_VHTa3BU7GHSmhO7he8T92Oc7HENSlsPcerLUcnCeYuOi2JS7DJrzk5W6eBIBM'
+SECRET_KEY = config('SECRET_KEY')
