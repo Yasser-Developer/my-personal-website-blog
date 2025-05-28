@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% block title %}Topics{% endblock %}
+{% block content %}
+    <h1>Topics</h1>
+    {% if query %}
+        <p>Results for: "{{ query }}"</p>
+    {% endif %}
+    <div class="list-group">
+        {% for topic in topics %}
+            <a href="{% url 'blog:topic' topic.id %}" class="list-group-item list-group-item-action">{{ topic }}</a>
+        {% empty %}
+            <p class="text-muted">No topics have been added yet.</p>
+        {% endfor %}
+    </div>
+    {% if user.is_authenticated %}
+        <a href="{% url 'blog:new_topic' %}" class="btn btn-primary mt-3">Add a new topic</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+{% block title %}Edit Entry{% endblock %}
+{% block content %}
+    <h1>Edit entry</h1>
+    <h3>{{ entry }}</h3>
+    <form action="{% url 'blog:edit_entry' entry.id %}" method="post" class="mt-3">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-success">Save changes</button>
+    </form>
+    <a href="{% url 'blog:topic' topic.id %}" class="btn btn-secondary mt-2">Back to topic</a>
+{% endblock %}

@@ -1,0 +1,48 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+<body class="bg-gray-900 text-white font-sans transition-colors duration-300">
+    <!-- Navbar -->
+    <nav class="bg-gray-800 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'blog:index' %}" class="text-xl font-bold text-teal-400 hover:text-teal-300">Learning Log</a>
+            <div class="space-x-4">
+                <a href="{% url 'blog:topics' %}" class="hover:text-teal-300">Topics</a>
+                {% if user.is_authenticated %}
+                    <span class="text-gray-300">Hello, {{ user.username }}!</span>
+                    <a href="{% url 'profile' %}" class="hover:text-teal-300">Profile</a>
+                    <a href="{% url 'logout' %}" class="hover:text-teal-300">Log out</a>
+                {% else %}
+                    <a href="{% url 'login' %}?next={% url 'blog:index' %}" class="hover:text-teal-300">Log in</a>
+                    <a href="{% url 'blog:signup' %}" class="hover:text-teal-300">Sign up</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-6 mt-6 bg-gray-800 rounded-lg shadow-md">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="p-4 mb-4 text-sm rounded-lg {% if message.tags == 'success' %}bg-green-900 text-green-200{% else %}bg-red-900 text-red-200{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 p-4 mt-6 text-center text-gray-500">
+        <p>© 2025 Learning Log. All rights reserved.</p>
+    </footer>
+</body>
+</html>
